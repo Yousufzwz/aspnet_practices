@@ -7,15 +7,23 @@ namespace PracticeApplication1.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IEmailSender _emailSender;
+        private readonly ISMsSender _smsSender;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,
+            IEmailSender emailSender, ISMsSender smsSender)
         {
             _logger = logger;
+            _emailSender = emailSender;
+            _smsSender = smsSender;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var model = new IndexModel();
+            model.Message = "Assalamu Alaikum";
+            _logger.LogInformation("I am in index");
+            return View(model);
         }
 
         public IActionResult Privacy()

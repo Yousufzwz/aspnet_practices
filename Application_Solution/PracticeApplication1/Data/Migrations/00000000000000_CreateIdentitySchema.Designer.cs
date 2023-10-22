@@ -9,7 +9,7 @@ using System;
 
 namespace PracticeApplication1.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
