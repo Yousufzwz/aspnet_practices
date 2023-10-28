@@ -13,7 +13,7 @@ namespace PracticeApplication1.Controllers
         public HomeController(ILogger<HomeController> logger,
             IEmailSender emailSender, ISMsSender smsSender)
         {
-            _logger = logger;
+            _logger = logger; 
             _emailSender = emailSender;
             _smsSender = smsSender;
         }
