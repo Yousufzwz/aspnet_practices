@@ -4,3 +4,6 @@
 2023-10-29 17:15:50.070 +06:00 [ERR] This is an error message
 2023-10-29 17:15:50.075 +06:00 [FTL] This is fatal error message
 2023-10-29 17:15:50.075 +06:00 [INF] This is information message
+2023-10-29 20:13:27.469 +06:00 [ERR] This is an error message
+2023-10-29 20:13:27.474 +06:00 [FTL] This is fatal error message
+2023-10-29 20:13:27.475 +06:00 [INF] This is information message
