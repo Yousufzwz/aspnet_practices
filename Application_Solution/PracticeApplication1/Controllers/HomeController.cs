@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PracticeApplication1.Models;
+using Serilog;
 using System.Diagnostics;
 
 namespace PracticeApplication1.Controllers
@@ -23,6 +24,9 @@ namespace PracticeApplication1.Controllers
             var model = new IndexModel();
             model.Message = "Assalamu Alaikum";
             _logger.LogInformation("I am in index");
+            Log.Error("This is an error message");
+            Log.Fatal("This is fatal error message");
+            Log.Information("This is information message");
             return View(model);
         }
 

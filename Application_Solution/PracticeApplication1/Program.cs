@@ -23,7 +23,7 @@ Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
     .Enrich.FromLogContext()
-    .WriteTo.Console() // You can also log to the console if needed
+    //.WriteTo.Console() // You can also log to the console if needed
     .WriteTo.File("log.txt", restrictedToMinimumLevel: LogEventLevel.Information) // All levels to file
     .WriteTo.MSSqlServer(
         connectionString: "Server=(localdb)\\mssqllocaldb;Database=aspnet-PracticeApplication1-0e510aeb-1828-4e7f-a82f-84e9ece3b9af;Trusted_Connection=True;MultipleActiveResultSets=true",
@@ -33,6 +33,7 @@ Log.Logger = new LoggerConfiguration()
         fromEmail: "your@example.com",
         toEmail: "admin@example.com",
         mailServer: "smtp.example.com",
+        mailSubject:"Fatal Error",
         restrictedToMinimumLevel: LogEventLevel.Fatal) // Fatal to email
     .CreateLogger();
 
