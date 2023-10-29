@@ -11,12 +11,30 @@ using Serilog.Events;
 var builder = WebApplication.CreateBuilder(args);
 
 //Serilog configuration
-builder.Host.UseSerilog((ctx, lc) => lc
+//builder.Host.UseSerilog((ctx, lc) => lc
+//    .MinimumLevel.Debug()
+//    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+//    .Enrich.FromLogContext()
+//    .ReadFrom.Configuration(builder.Configuration)
+//);
+
+// Serilog configuration
+Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
     .Enrich.FromLogContext()
-    .ReadFrom.Configuration(builder.Configuration)
-);
+    .WriteTo.Console() // You can also log to the console if needed
+    .WriteTo.File("log.txt", restrictedToMinimumLevel: LogEventLevel.Information) // All levels to file
+    .WriteTo.MSSqlServer(
+        connectionString: "Server=(localdb)\\mssqllocaldb;Database=aspnet-PracticeApplication1-0e510aeb-1828-4e7f-a82f-84e9ece3b9af;Trusted_Connection=True;MultipleActiveResultSets=true",
+        tableName: "Logs",
+        restrictedToMinimumLevel: LogEventLevel.Error) // Error and above to database
+    .WriteTo.Email(
+        fromEmail: "your@example.com",
+        toEmail: "admin@example.com",
+        mailServer: "smtp.example.com",
+        restrictedToMinimumLevel: LogEventLevel.Fatal) // Fatal to email
+    .CreateLogger();
 
 //try-catch added
 try
