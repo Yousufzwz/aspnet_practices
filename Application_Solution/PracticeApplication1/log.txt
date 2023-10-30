@@ -7,3 +7,9 @@
 2023-10-29 20:13:27.469 +06:00 [ERR] This is an error message
 2023-10-29 20:13:27.474 +06:00 [FTL] This is fatal error message
 2023-10-29 20:13:27.475 +06:00 [INF] This is information message
+2023-10-30 10:04:37.593 +06:00 [ERR] This is an error message
+2023-10-30 10:04:37.597 +06:00 [FTL] This is fatal error message
+2023-10-30 10:04:37.619 +06:00 [INF] This is information message
+2023-10-30 10:16:39.798 +06:00 [ERR] This is an error message
+2023-10-30 10:16:39.802 +06:00 [FTL] This is fatal error message
+2023-10-30 10:16:39.802 +06:00 [INF] This is information message

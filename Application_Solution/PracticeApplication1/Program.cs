@@ -30,8 +30,8 @@ Log.Logger = new LoggerConfiguration()
         tableName: "Logs",
         restrictedToMinimumLevel: LogEventLevel.Error) // Error and above to database
     .WriteTo.Email(
-        fromEmail: "your@example.com",
-        toEmail: "admin@example.com",
+        fromEmail: "app@example.com",
+        toEmail: "support@example.com",
         mailServer: "smtp.example.com",
         mailSubject:"Fatal Error",
         restrictedToMinimumLevel: LogEventLevel.Fatal) // Fatal to email
