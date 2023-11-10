@@ -30,6 +30,24 @@ namespace PracticeApplication1.Controllers
             return View(model);
         }
 
+        public IActionResult Test()
+        {
+            var model = new TestModel();
+            model.Email = "mahmud1@gmail.com";
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Test(TestModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //code to future
+            }
+            return View(model);
+        }
+
+
         public IActionResult Privacy()
         {
             return View();
