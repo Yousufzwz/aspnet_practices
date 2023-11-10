@@ -42,7 +42,7 @@ namespace PracticeApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                //code to future
+                //code write to future
             }
             return View(model);
         }
