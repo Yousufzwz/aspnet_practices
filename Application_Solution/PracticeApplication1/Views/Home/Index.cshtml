@@ -1,0 +1,26 @@
+﻿@model IndexModel
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout2";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="/scss/home.css" />
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Message</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div>
+    <button class="myBtn">Button1</button>
+    <button class="myBtn2">Button2</button>
+</div>
+
+<div class="myDiv">
+    <button>New Button</button>
+</div>
+
+<p class="myPara">This is a paragraph</p>
