@@ -19,18 +19,33 @@ public class CourseManagementService : ICourseManagementService
     }
 
     
-    public void CreateCourse(string title, uint fees, string description)
+    public async Task CreateCourse(string title, uint fees, string description)
     {
-        Course course = new Course
-        {
-            Title = title,
-            Fees = fees,
-            Description = description
-        };
+        bool isDuplicateTitle = await _unitOfWork.CourseRepository.
+            IsTitleDuplicate(title);
+
+        if (isDuplicateTitle)
+            throw new InvalidOperationException();
         
-        _unitOfWork.CourseRepository.Add(course);
-        _unitOfWork.Save();
+            Course course = new Course
+            {
+                Title = title,
+                Fees = fees,
+                Description = description
+            };
+
+            _unitOfWork.CourseRepository.Add(course);
+            _unitOfWork.Save();
+
+        
+        
 
 
+    }
+
+    public async Task<(IList<Course> records, int total, int totalDisplay)> GetPagedCoursesAsync(int pageIndex, int pageSize, string searchText, string sortBy)
+    {
+        return await _unitOfWork.CourseRepository.GetTableDataAsync(searchText, sortBy, 
+            pageIndex, pageSize);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Microsoft.AspNetCore.Mvc;
+using PracticeApplication.Infrastructure;
 using PracticeApplication1.Areas.Admin.Models;
 
 namespace PracticeApplication1.Areas.Admin.Controllers;
@@ -37,5 +38,15 @@ public class CourseController : Controller
             return RedirectToAction("Index");
         }
         return View(model); 
+    }
+
+
+    public async Task<JsonResult> GetCourses()
+    {
+        var dataTablesModel = new DataTablesAjaxRequestUtility(Request);
+        var model = _scope.Resolve<CourseListModel>();
+
+        var data = await model.GetPagedCoursesAsync(dataTablesModel);
+        return Json(data);
     }
 }

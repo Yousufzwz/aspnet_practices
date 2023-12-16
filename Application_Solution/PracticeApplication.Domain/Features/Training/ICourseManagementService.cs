@@ -1,7 +1,10 @@
-﻿namespace PracticeApplication1.Domain.Features.Training
+﻿using PracticeApplication.Domain.Entities;
+
+namespace PracticeApplication1.Domain.Features.Training
 {
     public interface ICourseManagementService
     {
-        void CreateCourse(string title, uint fees, string description);
+        Task CreateCourse(string title, uint fees, string description);
+        Task<(IList<Course> records, int total, int totalDisplay)> GetPagedCoursesAsync(int pageIndex, int pageSize, string searchText, string sortBy);
     }
 }

@@ -10,5 +10,6 @@ public class WebModule:Module
     {
         builder.RegisterType<UnicodeSmsSender>().As<ISMsSender>();
         builder.RegisterType<CourseCreateModel>().AsSelf();  
+        builder.RegisterType<CourseListModel>().AsSelf();
     }
 }

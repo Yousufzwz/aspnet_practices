@@ -16,7 +16,7 @@ public interface IRepositoryBase<TEntity, TKey>
     void Add(TEntity entity);
     Task AddAsync(TEntity entity);
     void Edit(TEntity entityToUpdate);
-    Task EditAsync(TEntity entityToUpdate);
+    Task EditAsync(TEntity entityToUpdate);  
     IList<TEntity> GetAll();
     Task<IList<TEntity>> GetAllAsync();
     TEntity GetById(TKey id);
