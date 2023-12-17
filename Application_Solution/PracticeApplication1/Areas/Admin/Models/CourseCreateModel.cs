@@ -25,8 +25,8 @@ public class CourseCreateModel
         _courseManagementService = _scope.Resolve<ICourseManagementService>();
     }
 
-    internal void CreateCoures()
+    internal async Task CreateCourseAsync()
     {
-        _courseManagementService.CreateCourse(Title, Fees, Description);
+        await _courseManagementService.CreateCourseAsync(Title, Fees, Description);
     }
 }
