@@ -1,7 +1,7 @@
 ﻿using Exam1.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace FirstDemo.Infrastructure
+namespace Exam1.Infrastructure
 {
     public interface IApplicationDbContext
     {
