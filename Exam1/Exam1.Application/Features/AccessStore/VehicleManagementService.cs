@@ -31,5 +31,11 @@ public class VehicleManagementService : IVehicleManagementService
 
     }
 
+    public async Task<(IList<Car> records, int total, int totalDisplay)> GetDataOfVehiclesAsync(int pageIndex, int pageSize, string searchText, string sortBy)
+    {
+        return await _unitOfWork.CarRepository.GetTableDataAsync(searchText, sortBy,
+            pageIndex, pageSize);
+    }
+
 
 }

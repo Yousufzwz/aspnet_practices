@@ -16,4 +16,12 @@ public class CarRepository : Repository<Car, Guid>, ICarRepository
     { 
         
     }
+
+    public async Task<(IList<Car> records, int total, int totalDisplay)>
+      GetTableDataAsync(string searchText, string orderBy,
+          int pageIndex, int pageSize)
+    {
+        return await GetDynamicAsync(x => x.BrandName.Contains(searchText),
+            orderBy, null, pageIndex, pageSize, true);
+    }
 }

@@ -26,7 +26,8 @@ namespace Exam1.Web.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var model = _scope.Resolve<VehicleInsertModel>();
+            return View(model);
         }
 
 
@@ -63,6 +64,15 @@ namespace Exam1.Web.Areas.Admin.Controllers
             return View(vehicleModel);
         }
 
+
+        public async Task<JsonResult> GetCars()
+        {
+            var dataTablesModel = new DataTablesAjaxRequestUtility(Request);
+            var model = _scope.Resolve<VehiclesListModel>();
+
+            var data = await model.GetDataOfVehiclesAsync(dataTablesModel);
+            return Json(data);
+        }
 
     }
 }

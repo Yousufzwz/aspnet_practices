@@ -8,5 +8,6 @@ public class WebModule : Module
     protected override void Load(ContainerBuilder builder)
     {
         builder.RegisterType<VehicleInsertModel>().AsSelf();
+        builder.RegisterType<VehiclesListModel>().AsSelf();
     }
 }
