@@ -36,7 +36,13 @@ public class VehicleManagementService : IVehicleManagementService
 
     }
 
-    public async Task<(IList<Car> records, int total, int totalDisplay)> GetDataOfVehiclesAsync(int pageIndex, int pageSize, string searchText, string sortBy)
+	public async Task RemoveVehicleAsync(Guid id)
+	{
+		await _unitOfWork.CarRepository.RemoveAsync(id);
+		await _unitOfWork.SaveAsync();
+	}
+
+	public async Task<(IList<Car> records, int total, int totalDisplay)> GetDataOfVehiclesAsync(int pageIndex, int pageSize, string searchText, string sortBy)
     {
         return await _unitOfWork.CarRepository.GetTableDataAsync(searchText, sortBy,
             pageIndex, pageSize);

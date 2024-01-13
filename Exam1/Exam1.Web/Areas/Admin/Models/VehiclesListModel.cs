@@ -40,4 +40,9 @@ public class VehiclesListModel
                 ).ToArray()
         };
     }
+
+	public async Task RemoveVehicleAsync(Guid id)
+	{
+		await _vehicleManagementService.RemoveVehicleAsync(id);
+	}
 }

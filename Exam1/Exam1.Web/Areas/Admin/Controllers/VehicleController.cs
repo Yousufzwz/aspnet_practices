@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Exam1.Domain;
 using Exam1.Infrastructure;
 using Exam1.Web.Areas.Admin.Models;
 using FirstDemo.Web.Areas.Admin.Models;
@@ -74,5 +75,40 @@ namespace Exam1.Web.Areas.Admin.Controllers
             return Json(data);
         }
 
-    }
+
+		[HttpPost, ValidateAntiForgeryToken]
+		public async Task<IActionResult> Delete(Guid id)
+		{
+            var vehicleModel = _scope.Resolve<VehiclesListModel>();
+
+			if (ModelState.IsValid)
+			{
+				try
+				{
+					await vehicleModel.RemoveVehicleAsync(id);
+					TempData.Put("ResponseMessage", new ResponseModel
+					{
+						Message = "Vehicle successfully removed from the workshop!",
+						Type = ResponseTypes.Success
+					});
+
+					return RedirectToAction("Index");
+
+				}
+				catch (Exception ex)
+				{
+					_logger.LogError(ex, "Server Error");
+
+					TempData.Put("ResponseMessage", new ResponseModel
+					{
+						Message = "Failed to removed vehicle from the workshop!",
+						Type = ResponseTypes.Danger
+					});
+				}
+			}
+
+			return RedirectToAction("Index");
+		}
+
+	}
 }
