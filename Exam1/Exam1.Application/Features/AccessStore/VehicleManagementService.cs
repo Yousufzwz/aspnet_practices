@@ -1,6 +1,7 @@
 ﻿using Exam1.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,10 @@ public class VehicleManagementService : IVehicleManagementService
 
     public async Task InsertVehicleAsync(string brandName, string category, double price)
     {
+        bool isDuplicateTitle = await _unitOfWork.CarRepository.IsVehicleDuplicateNameAsync(brandName);
+        if (isDuplicateTitle)
+            throw new DuplicateNameException(); ;
+
         Car car = new Car()
         {
             BrandName = brandName,

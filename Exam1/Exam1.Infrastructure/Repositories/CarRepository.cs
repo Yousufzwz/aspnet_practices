@@ -24,4 +24,28 @@ public class CarRepository : Repository<Car, Guid>, ICarRepository
         return await GetDynamicAsync(x => x.BrandName.Contains(searchText),
             orderBy, null, pageIndex, pageSize, true);
     }
+
+    public async Task<bool> IsVehicleDuplicateNameAsync(string name, Guid? id = null)
+    {
+        if (id.HasValue)
+        {
+            return await IsDuplicateWithIdAsync(name, id.Value);
+        }
+        else
+        {
+            return await IsDuplicateWithoutIdAsync(name);
+        }
+    }
+
+    private async Task<bool> IsDuplicateWithIdAsync(string name, Guid id)
+    {
+        int count = await GetCountAsync(x => x.Id != id && x.BrandName == name);
+        return count > 0;
+    }
+
+    private async Task<bool> IsDuplicateWithoutIdAsync(string name)
+    {
+        int count = await GetCountAsync(x => x.BrandName == name);
+        return count > 0;
+    }
 }
