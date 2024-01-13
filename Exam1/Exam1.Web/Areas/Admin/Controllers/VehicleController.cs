@@ -4,6 +4,7 @@ using Exam1.Infrastructure;
 using Exam1.Web.Areas.Admin.Models;
 using FirstDemo.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Exam1.Web.Areas.Admin.Controllers
 {
@@ -50,7 +51,15 @@ namespace Exam1.Web.Areas.Admin.Controllers
                     return RedirectToAction("Index");   
 
                 }
-                catch (Exception ex)
+				catch (DuplicateNameException de)
+				{
+					TempData.Put("ResponseMessage", new ResponseModel
+					{
+						Message = de.Message,
+						Type = ResponseTypes.Danger
+					});
+				}
+				catch (Exception ex)
                 {
                     _logger.LogError(ex, "Server Error");
 
@@ -108,6 +117,54 @@ namespace Exam1.Web.Areas.Admin.Controllers
 			}
 
 			return RedirectToAction("Index");
+		}
+
+		public async Task<IActionResult> Update(Guid id)
+		{
+			var vehicleModel = _scope.Resolve<VehicleUpdateModel>();
+			await vehicleModel.OldToNewAsync(id);
+			return View(vehicleModel);
+		}
+
+
+		[HttpPost, ValidateAntiForgeryToken]
+		public async Task<IActionResult> Update(VehicleUpdateModel vehicleModel)
+		{
+			vehicleModel.Resolve(_scope);
+
+			if (ModelState.IsValid)
+			{
+				try
+				{
+					await vehicleModel.UpdateVehicleAsync();
+					TempData.Put("ResponseMessage", new ResponseModel
+                    {
+                        Message = "Vehicle features updated successfuly!",
+					    Type = ResponseTypes.Success
+                });
+                    return RedirectToAction("Index");
+				}
+				catch (DuplicateNameException de)
+				{
+					TempData.Put("ResponseMessage", new ResponseModel
+					{
+						Message = de.Message,
+						Type = ResponseTypes.Danger
+					});
+				}
+				catch (Exception ex)
+				{
+					_logger.LogError(ex, "Server Error");
+
+					TempData.Put("ResponseMessage", new ResponseModel
+					{
+						Message = "Failed to updated data of a vehicle!",
+						Type = ResponseTypes.Danger
+					});
+				}
+			}
+
+			return View(vehicleModel);
 		}
 
 	}

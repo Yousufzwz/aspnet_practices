@@ -11,7 +11,9 @@ public interface IVehicleManagementService
 {
     Task InsertVehicleAsync(string brandName, string category, double price);
     Task RemoveVehicleAsync(Guid id);
+	Task UpdateVehicleAsync(Guid id, string brandName, string category, double price);
+	Task<Car> GetVehicleAsync(Guid id);
 
-    Task<(IList<Car> records, int total, int totalDisplay)>
+	Task<(IList<Car> records, int total, int totalDisplay)>
         GetDataOfVehiclesAsync(int pageIndex, int pageSize, string searchText, string sortBy);
 }

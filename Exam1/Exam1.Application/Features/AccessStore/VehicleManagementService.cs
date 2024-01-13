@@ -48,5 +48,25 @@ public class VehicleManagementService : IVehicleManagementService
             pageIndex, pageSize);
     }
 
+	public async Task UpdateVehicleAsync(Guid id, string brandName, string category, double price)
+	{
+		bool isDuplicateTitle = await _unitOfWork.CarRepository.IsVehicleDuplicateNameAsync(brandName, id);
+		if (isDuplicateTitle)
+			throw new DuplicateNameException(); ;
 
+		var vehicleProduct = await GetVehicleAsync(id);
+		if (vehicleProduct != null)
+		{
+			vehicleProduct.BrandName = brandName;
+			vehicleProduct.Category = category;
+			vehicleProduct.Price = price;
+			
+		}
+		await _unitOfWork.SaveAsync();
+	}
+
+	public async Task<Car> GetVehicleAsync(Guid id)
+	{
+        return await _unitOfWork.CarRepository.GetByIdAsync(id);
+    }
 }

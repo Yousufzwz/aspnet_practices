@@ -9,5 +9,6 @@ public class WebModule : Module
     {
         builder.RegisterType<VehicleInsertModel>().AsSelf();
         builder.RegisterType<VehiclesListModel>().AsSelf();
+        builder.RegisterType<VehicleUpdateModel>().AsSelf();
     }
 }
